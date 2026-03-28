@@ -1,6 +1,5 @@
 package com.sushant.journalapp.service;
 
-import com.sushant.journalapp.entity.Journal;
 import com.sushant.journalapp.entity.User;
 import com.sushant.journalapp.repository.UserRepository;
 import org.bson.types.ObjectId;
