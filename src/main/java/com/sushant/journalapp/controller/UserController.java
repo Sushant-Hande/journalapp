@@ -24,7 +24,7 @@ public class UserController {
         User existingUser = userService.findByUserName(userName);
         if (existingUser != null) {
             existingUser.setPassword(user.getPassword());
-            userService.saveUser(existingUser);
+            userService.saveNewUser(existingUser);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

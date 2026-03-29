@@ -23,15 +23,15 @@ public class JournalEntryService {
 
     @Transactional
     public void saveJournalEntry(Journal journal, String userName) {
-       try {
-           User user = userService.findByUserName(userName);
-           journal.setDate(LocalDateTime.now());
-           Journal journalSaved = journalEntryRepository.save(journal);
-           user.getJournals().add(journalSaved);
-           userService.saveUser(user);
-       } catch (Exception e) {
-           throw new RuntimeException("Error occurred while saving entry",e);
-       }
+        try {
+            User user = userService.findByUserName(userName);
+            journal.setDate(LocalDateTime.now());
+            Journal journalSaved = journalEntryRepository.save(journal);
+            user.getJournals().add(journalSaved);
+            userService.saveUser(user);
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while saving entry", e);
+        }
     }
 
     public void updateJournalEntry(Journal journal) {
@@ -46,10 +46,20 @@ public class JournalEntryService {
         return journalEntryRepository.findById(id);
     }
 
-    public void deleteById(ObjectId id, String userName) {
-        User user = userService.findByUserName(userName);
-        user.getJournals().removeIf(journal -> journal.getId().equals(id));
-        userService.saveUser(user);
-        journalEntryRepository.deleteById(id);
+    @Transactional
+    public boolean deleteById(ObjectId id, String userName) {
+        boolean removed = false;
+        try {
+            User user = userService.findByUserName(userName);
+            removed = user.getJournals().removeIf(journal -> journal.getId().equals(id));
+            if (removed) {
+                userService.saveUser(user);
+                journalEntryRepository.deleteById(id);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new RuntimeException("An error occurred while deleting entry", e);
+        }
+        return removed;
     }
 }
