@@ -3,6 +3,8 @@ package com.sushant.journalapp.service;
 import com.sushant.journalapp.entity.User;
 import com.sushant.journalapp.repository.UserRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,13 +18,25 @@ public class UserService {
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
+
     @Autowired
     private UserRepository userRepository;
 
-    public void saveNewUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(List.of("USER"));
-        userRepository.save(user);
+    public boolean saveNewUser(User user) {
+        try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoles(List.of("USER"));
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            logger.info("Error Occurred", e);
+            logger.error("hahahahahah");
+            logger.warn("hahahahahah");
+            logger.debug("hahahahahah");
+            logger.trace("hahahahahah");
+            return false;
+        }
     }
 
     public void saveAdmin(User user) {
