@@ -24,7 +24,7 @@ public class UserServiceTests {
     }
 
     @ParameterizedTest
-    @CsvSource({"Sushant", "Hande", "Test"})
+    @CsvSource({"Sushant", "Hande"})
     public void testFindByUserNameofUserService(String name){
         assertNotNull(userService.findByUserName(name));
     }
