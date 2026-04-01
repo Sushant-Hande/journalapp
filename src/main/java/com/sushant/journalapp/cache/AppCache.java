@@ -14,14 +14,15 @@ public class AppCache {
     @Autowired
     private ConfigJournalAppRepository configJournalAppRepository;
 
-    public Map<String, String> cache = new HashMap<>();
+    public Map<String, String> cache;
 
     @PostConstruct
     public void initCache() {
-        configJournalAppRepository.findAll().forEach(config     -> {
+        cache = new HashMap<>();
+        configJournalAppRepository.findAll().forEach(config -> {
             cache.put(config.getKey(), config.getValue());
         });
 
-        System.out.println("App cache"+cache);
+        System.out.println("App cache" + cache);
     }
 }
