@@ -2,6 +2,18 @@ spring:
   profiles:
     active: dev
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sushanthande1@gmail.com
+    password: lpef ivpm cgnr poac
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 weather:
   api:
     key: 1e2b0137774e0eb3fa7deb5a533d2343
