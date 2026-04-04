@@ -2,6 +2,7 @@ package com.sushant.journalapp.controller;
 
 import com.sushant.journalapp.apiresponse.WeatherResponse;
 import com.sushant.journalapp.entity.User;
+import com.sushant.journalapp.service.RedisService;
 import com.sushant.journalapp.service.UserService;
 import com.sushant.journalapp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class UserController {
     @Autowired
     private WeatherService weatherService;
 
+    @Autowired
+    private RedisService redisService;
 
     @PutMapping("/updateUser")
     public ResponseEntity<?> updateUser(@RequestBody User user) {
@@ -47,14 +50,22 @@ public class UserController {
 
     @GetMapping("/getWeather")
     ResponseEntity<?> getWeather() {
+        String city = "Mumbai";
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
-        WeatherResponse  weatherResponse= weatherService.getWeather("Mumbai");
-        String grreting = "";
-        if (weatherResponse !=null){
-            grreting = " Weather Feels like " + weatherResponse.getCurrent().getFeelslike();
+
+        WeatherResponse cachedWeatherResponse = redisService.get(city, WeatherResponse.class);
+        if (cachedWeatherResponse != null) {
+            return new ResponseEntity<>(cachedWeatherResponse, HttpStatus.OK);
+        }else {
+            WeatherResponse  weatherResponse= weatherService.getWeather(city);
+            String grreting = "";
+            if (weatherResponse !=null){
+                redisService.set(city, weatherResponse, 300L);
+                grreting = " Weather Feels like " + weatherResponse.getCurrent().getFeelslike();
+            }
+            return new ResponseEntity<>("Hi " + userName + grreting, HttpStatus.OK);
         }
-        return new ResponseEntity<>("Hi " + userName + grreting, HttpStatus.OK);
     }
 
 }
