@@ -1,6 +1,7 @@
 package com.sushant.journalapp.controller;
 
 import com.sushant.journalapp.entity.JournalEntry;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/_journal")
+@Tag(name = "Journal Entry APIs Old Controller", description = "APIs for managing journal entries")
 public class JournalEntryController {
 
     private Map<Long, JournalEntry> journalentries = new HashMap<>();

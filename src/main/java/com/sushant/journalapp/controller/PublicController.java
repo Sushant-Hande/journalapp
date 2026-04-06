@@ -3,6 +3,7 @@ package com.sushant.journalapp.controller;
 import com.sushant.journalapp.entity.User;
 import com.sushant.journalapp.service.UserService;
 import com.sushant.journalapp.utils.JwtUtil;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/public")
 @Slf4j
+@Tag(name = "Public APIs", description = "APIs for public user operations")
 public class PublicController {
 
     @Autowired
