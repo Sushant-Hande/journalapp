@@ -231,4 +231,5 @@ Before any production or public deployment:
 ## Learning context
 
 This repository is intentionally hands-on and iterative because it was built while learning Spring Boot concepts through a YouTube playlist.
+Playlist followed while learning Spring Boot: [Spring Boot Learning Playlist](https://www.youtube.com/watch?v=1993zSY5UBI&list=PLA3GkZPtsafacdBLdd3p1DyRd5FGfr3Ue)
 Refactors and hardening are expected as the project evolves.
