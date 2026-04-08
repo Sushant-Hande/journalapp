@@ -5,8 +5,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: sushanthande1@gmail.com
-    password: lpef ivpm cgnr poac
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
     properties:
       mail:
         smtp:
@@ -15,9 +15,9 @@ spring:
             enable: true
 
   redis:
-    host: redis-16761.crce281.ap-south-1-3.ec2.cloud.redislabs.com
-    port: 16761
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
 
 weather:
   api:
-    key: 1e2b0137774e0eb3fa7deb5a533d2343
+    key: ${WEATHER_API_KEY}
