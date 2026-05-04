@@ -21,3 +21,8 @@ spring:
 weather:
   api:
     key: ${WEATHER_API_KEY}
+
+app:
+  cors:
+    allowed-origin-patterns: ${APP_CORS_ALLOWED_ORIGIN_PATTERNS:*}
+
